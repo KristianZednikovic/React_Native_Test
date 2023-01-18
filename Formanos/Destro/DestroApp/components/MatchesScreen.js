@@ -21,6 +21,7 @@ export default function MatchesScreen({navigation, route}) {
   var assists = 0;
   var matchCards = [];
   var allCards = [];
+  var count = 0;
 
   const getMatchInfo = async () => {
     try {
@@ -80,14 +81,47 @@ export default function MatchesScreen({navigation, route}) {
       <View style={styles.textView}>
         <Text>Match: {card.matchId}</Text>
         {card.match.map(y => {
-          return (
-            <View style={styles.textViewSummoner}>
-              <Text>{y.summonerName}</Text>
-              <Text>
-                Kills: {y.kills} Deaths: {y.deaths} Assists: {y.assists}
-              </Text>
-            </View>
-          );
+          if (count === 10) {
+            count = 0;
+          }
+          if (count === 0) {
+            count++;
+            console.log(y);
+            return (
+              <>
+                <Text>Team </Text>
+                <View style={styles.textViewSummoner}>
+                  <Text>{y.summonerName}</Text>
+                  <Text>
+                    Kills: {y.kills} Deaths: {y.deaths} Assists: {y.assists}
+                  </Text>
+                </View>
+              </>
+            );
+          } else if (count !== 5) {
+            count++;
+            return (
+              <View style={styles.textViewSummoner}>
+                <Text>{y.summonerName}</Text>
+                <Text>
+                  Kills: {y.kills} Deaths: {y.deaths} Assists: {y.assists}
+                </Text>
+              </View>
+            );
+          } else {
+            count++;
+            return (
+              <>
+                <Text>Team 2</Text>
+                <View style={styles.textViewSummoner}>
+                  <Text>{y.summonerName}</Text>
+                  <Text>
+                    Kills: {y.kills} Deaths: {y.deaths} Assists: {y.assists}
+                  </Text>
+                </View>
+              </>
+            );
+          }
         })}
         <Text></Text>
       </View>

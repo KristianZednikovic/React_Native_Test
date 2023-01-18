@@ -15,10 +15,12 @@ export default function MatchesScreen({navigation, route}) {
   const [kill, setKill] = useState(0);
   const [death, setDeath] = useState(0);
   const [assist, setAssist] = useState(0);
+  const [playerWins, setPlayerWins] = useState(0);
 
   var kills = 0;
   var deaths = 0;
   var assists = 0;
+  var wins = 0;
   var matchCards = [];
   var allCards = [];
   var count = 0;
@@ -40,6 +42,9 @@ export default function MatchesScreen({navigation, route}) {
             kills += playerData['kills'];
             deaths += playerData['deaths'];
             assists += playerData['assists'];
+            if (playerData['win'] === true) {
+              wins++;
+            }
           }
 
           matchCards = [
@@ -58,6 +63,7 @@ export default function MatchesScreen({navigation, route}) {
         setAssist(assists / 10);
         setDeath(deaths / 10);
         setKda((kills + assists) / deaths);
+        setPlayerWins(wins * 10);
         allCards = [
           ...allCards,
           {matchId: route.params.paramKey[0][i], match: matchCards},
@@ -78,7 +84,6 @@ export default function MatchesScreen({navigation, route}) {
   }, []);
 
   const matchList = cards.map(card => {
-
     return (
       <View style={styles.textView}>
         <Text>Match: {card.matchId}</Text>
@@ -91,7 +96,9 @@ export default function MatchesScreen({navigation, route}) {
             if (y.win === true) {
               return (
                 <>
-                  <Text style={{marginTop: 15,color:'green'}}>Team 1 win</Text>
+                  <Text style={{marginTop: 15, color: 'green'}}>
+                    Team 1 win
+                  </Text>
                   <View style={styles.textViewSummoner}>
                     <Text>{y.summonerName}</Text>
                     <Text>
@@ -103,7 +110,7 @@ export default function MatchesScreen({navigation, route}) {
             } else {
               return (
                 <>
-                  <Text style={{marginTop: 15,color:'red'}}>Team 1 lose</Text>
+                  <Text style={{marginTop: 15, color: 'red'}}>Team 1 lose</Text>
                   <View style={styles.textViewSummoner}>
                     <Text>{y.summonerName}</Text>
                     <Text>
@@ -128,7 +135,9 @@ export default function MatchesScreen({navigation, route}) {
             if (y.win === true) {
               return (
                 <>
-                  <Text style={{marginTop: 15,color:'green'}}>Team 2 win</Text>
+                  <Text style={{marginTop: 15, color: 'green'}}>
+                    Team 2 win
+                  </Text>
                   <View style={styles.textViewSummoner}>
                     <Text>{y.summonerName}</Text>
                     <Text>
@@ -140,7 +149,7 @@ export default function MatchesScreen({navigation, route}) {
             } else {
               return (
                 <>
-                  <Text style={{marginTop: 15,color:'red'}}>Team 2 lose</Text>
+                  <Text style={{marginTop: 15, color: 'red'}}>Team 2 lose</Text>
                   <View style={styles.textViewSummoner}>
                     <Text>{y.summonerName}</Text>
                     <Text>
@@ -174,7 +183,9 @@ export default function MatchesScreen({navigation, route}) {
           <Text style={styles.topText}>
             Average kills: {kill}, deaths: {death}, assists: {assist}
           </Text>
-          <Text style={styles.topText}>Average KDA: {kda.toFixed(2)}</Text>
+          <Text style={styles.topText}>
+            Average KDA: {kda.toFixed(2)}   Winrate: {playerWins}%
+          </Text>
         </View>
         <ScrollView
           contentContainerStyle={{display: 'flex', justifyContent: 'center'}}>

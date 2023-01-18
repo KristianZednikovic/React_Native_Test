@@ -50,6 +50,7 @@ export default function MatchesScreen({navigation, route}) {
               kills: playerData['kills'],
               deaths: playerData['deaths'],
               assists: playerData['assists'],
+              win: playerData['win'],
             },
           ];
         }
@@ -68,7 +69,7 @@ export default function MatchesScreen({navigation, route}) {
     } catch (error) {
       console.error(error);
     } finally {
-      console.log('zavri picu');
+      console.log('konec more gadzino');
     }
   };
 
@@ -77,6 +78,7 @@ export default function MatchesScreen({navigation, route}) {
   }, []);
 
   const matchList = cards.map(card => {
+
     return (
       <View style={styles.textView}>
         <Text>Match: {card.matchId}</Text>
@@ -86,18 +88,31 @@ export default function MatchesScreen({navigation, route}) {
           }
           if (count === 0) {
             count++;
-            console.log(y);
-            return (
-              <>
-                <Text>Team </Text>
-                <View style={styles.textViewSummoner}>
-                  <Text>{y.summonerName}</Text>
-                  <Text>
-                    Kills: {y.kills} Deaths: {y.deaths} Assists: {y.assists}
-                  </Text>
-                </View>
-              </>
-            );
+            if (y.win === true) {
+              return (
+                <>
+                  <Text style={{marginTop: 15,color:'green'}}>Team 1 win</Text>
+                  <View style={styles.textViewSummoner}>
+                    <Text>{y.summonerName}</Text>
+                    <Text>
+                      Kills: {y.kills} Deaths: {y.deaths} Assists: {y.assists}
+                    </Text>
+                  </View>
+                </>
+              );
+            } else {
+              return (
+                <>
+                  <Text style={{marginTop: 15,color:'red'}}>Team 1 lose</Text>
+                  <View style={styles.textViewSummoner}>
+                    <Text>{y.summonerName}</Text>
+                    <Text>
+                      Kills: {y.kills} Deaths: {y.deaths} Assists: {y.assists}
+                    </Text>
+                  </View>
+                </>
+              );
+            }
           } else if (count !== 5) {
             count++;
             return (
@@ -110,17 +125,31 @@ export default function MatchesScreen({navigation, route}) {
             );
           } else {
             count++;
-            return (
-              <>
-                <Text>Team 2</Text>
-                <View style={styles.textViewSummoner}>
-                  <Text>{y.summonerName}</Text>
-                  <Text>
-                    Kills: {y.kills} Deaths: {y.deaths} Assists: {y.assists}
-                  </Text>
-                </View>
-              </>
-            );
+            if (y.win === true) {
+              return (
+                <>
+                  <Text style={{marginTop: 15,color:'green'}}>Team 2 win</Text>
+                  <View style={styles.textViewSummoner}>
+                    <Text>{y.summonerName}</Text>
+                    <Text>
+                      Kills: {y.kills} Deaths: {y.deaths} Assists: {y.assists}
+                    </Text>
+                  </View>
+                </>
+              );
+            } else {
+              return (
+                <>
+                  <Text style={{marginTop: 15,color:'red'}}>Team 2 lose</Text>
+                  <View style={styles.textViewSummoner}>
+                    <Text>{y.summonerName}</Text>
+                    <Text>
+                      Kills: {y.kills} Deaths: {y.deaths} Assists: {y.assists}
+                    </Text>
+                  </View>
+                </>
+              );
+            }
           }
         })}
         <Text></Text>

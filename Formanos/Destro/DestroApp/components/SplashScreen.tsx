@@ -76,7 +76,7 @@ export const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
       style={[style.container, { opacity: containerOpacity }]}
     >
       <Animated.Image
-        source={require("../assets/lol_icon.png")}
+        source={require("../assets/icon.png")}
         fadeDuration={0}
         onLoad={() => {
           setState(FADE_IN_IMAGE);
@@ -91,12 +91,12 @@ export const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
 const style = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#28306f',
+    backgroundColor: '#D4D7C4',
     alignItems: "center",
     justifyContent: "center",
   },
   image: {
-    width: 250,
-    height: 250,
+    width: 800,
+    height: 800,
   },
 });

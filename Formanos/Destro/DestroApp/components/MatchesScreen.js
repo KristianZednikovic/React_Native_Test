@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   Button,
+  ImageBackground,
 } from 'react-native';
 
 export default function MatchesScreen({navigation, route}) {
@@ -94,23 +95,45 @@ export default function MatchesScreen({navigation, route}) {
   });
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>
-        Average kills: {kill}, deaths: {death}, assists: {assist}
-      </Text>
-      <View style={styles.containerTop}>
-        <Text>Average KDA: </Text>
-        <Text>{kda}</Text>
-      </View>
-      <ScrollView>{matchList}</ScrollView>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <ImageBackground
+        source={require('../assets/icon.png')}
+        style={styles.image}
+        imageStyle={{
+          opacity: 0.4,
+          width: 800,
+          height: 800,
+          position: 'absolute',
+          top: 0,
+          left: -222,
+        }}>
+        <View style={styles.containerTop}>
+          <Text style={styles.topText}>
+            Average kills: {kill}, deaths: {death}, assists: {assist}
+          </Text>
+          <Text style={styles.topText}>Average KDA: {kda.toFixed(2)}</Text>
+        </View>
+        <ScrollView
+          contentContainerStyle={{display: 'flex', justifyContent: 'center'}}>
+          {matchList}
+        </ScrollView>
+      </ImageBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#D3D5C3',
+  },
   containerTop: {
-    flexDirection: 'row',
+    textAlign: 'center',
+    justifyContent: 'center',
+
+    width: 350,
   },
   textView: {
     alignItems: 'center',
@@ -119,11 +142,18 @@ const styles = StyleSheet.create({
     padding: 5,
     margin: 5,
     backgroundColor: 'black',
+    width: 250,
   },
   textViewSummoner: {
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
     borderColor: 'grey',
+  },
+  topText: {
+    color: 'black',
+  },
+  image: {
+    alignItems: 'center',
   },
 });
